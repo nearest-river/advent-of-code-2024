@@ -4,10 +4,8 @@ if(!import.meta.main) Deno.exit(0);
 const inp=await Deno.readTextFile("./input.txt");
 
 
-const dummy_type_checker=[0,[0]];
-const rules=new Map([dummy_type_checker]);
-const updates=[[0]];
-rules.delete(dummy_type_checker[0]);
+const rules=new Map();
+const updates=[];
 updates.pop();
 
 
@@ -25,11 +23,11 @@ for(const line of inp.split("\n")) {
   const following_pages=rules.get(page1);
 
   if(!following_pages) {
-    rules.set(page1,[page2]);
+    rules.set(page1,new Set([page2]));
     continue;
   }
 
-  following_pages.push(page2);
+  following_pages.add(page2);
 }
 
 /**
@@ -51,13 +49,32 @@ function ordered(update) {
   return true;
 }
 
+/**
+ * @param {number} lhs
+ * @param {number} rhs 
+ */
+const cmp=(lhs,rhs)=> {
+  const lhs_gt=rules.get(lhs);
+  const rhs_gt=rules.get(rhs);
+
+  const gt=lhs_gt?.has(rhs) ?? false;
+  const lt=rhs_gt?.has(lhs) ?? false;
+
+  return gt?1:lt?-1:0;
+}
+
+
 let sum=0;
 
 for(const update of updates) {
   if(ordered(update)) {
-    sum+=update[update.length>>1];
+    continue;
   }
+
+  sum+=update.sort(cmp)[update.length>>1];
 }
+
+
 
 console.log(sum);
 
