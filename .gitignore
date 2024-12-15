@@ -2,6 +2,8 @@ target/
 bin/
 obj/
 
+!src/bin/
+
 *.jar
 *.lock
 
