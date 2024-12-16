@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "run1": "deno run --allow-read=./ ./part1.ts",
+    "run2": "deno run --allow-read=./ ./part2.ts"
+  }
+}
