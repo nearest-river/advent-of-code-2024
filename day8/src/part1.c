@@ -13,7 +13,7 @@ bool is_antenna(char c);
 
 
 int main(int argc,const char** argv) {
-  FILE* file=fopen("./sample_inp.txt","r");
+  FILE* file=fopen("./input.txt","r");
   if(!file) {
     perror("couldn't open the file\n");
     return EXIT_FAILURE;
