@@ -1,0 +1,15 @@
+#!/bin/sh
+
+CC=gcc
+
+ensure_dir() {
+  if [ ! -d $1 ]; then
+    mkdir $1
+  fi
+}
+
+ensure_dir "target"
+ensure_dir "bin"
+cd target
+
+$CC -Wall -g -c ../include/cvec/lib/*.c
